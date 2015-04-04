@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Run Ball</title>
+	<style type="text/css">
+		#Ball {
+			position: absolute;
+			height: 145px;
+			width: 145px;
+			top: 100px;
+			left: 100px;
+			-webkit-border-radius: 50%;
+			-moz-border-radius: 50%;
+			-ms-border-radius: 50%;
+			-o-border-radius: 50%;
+			border-radius: 50%;
+			background: yellow;
+		}
+	</style>
+	<script type="text/javascript">
+		var ball = new Object();
+		ball.x_left =100;
+		ball.y_top = 100;
+		ball.x_a = 1.0;
+		ball.y_a = 2.0;
+		var hz = 1;
+		function Move(){
+			try{
+				var e = document.getElementById('Ball');
+				if((ball.x_left + 145) >= window.innerWidth || ball.x_left <= 0)
+				{
+					ball.x_a = -ball.x_a;
+					e.style.background = NewColor(ball.x_left,ball.y_top,Math.round(Math.random() * 1000));
+				}
+				if((ball.y_top + 145) >= window.innerHeight || ball.y_top <= 0)
+				{
+					ball.y_a = -ball.y_a;
+					e.style.background = NewColor(ball.x_left,ball.y_top,Math.round(Math.random() * 1000));
+				}
+				ball.x_left += ball.x_a;
+				ball.y_top += ball.y_a;
+				var s = ball.x_left + "px";
+				e.style.left = s;
+				s = ball.y_top + "px";
+				e.style.top = s;
+				t = window.setTimeout("Move()",hz);
+			}
+			catch(err)
+	  		{
+	  			alert(err.message);
+	 		}
+		}
+
+		function NewColor(var1 ,var2 , var3)
+		{
+			var color_str = new String("#");
+			var1 = var1 % 256;
+			var2 = var2 % 256;
+			var3 = var3 % 256;
+			var temp;
+			temp = var1.toString(16);
+			if(temp.length < 2)
+				temp = "0" + temp;
+			color_str += temp;
+			temp = var2.toString(16);
+			if(temp.length < 2)
+				temp = "0" + temp;
+			color_str += temp;
+			temp = var3.toString(16);
+			if(temp.length < 2)
+				temp = "0" + temp;
+			color_str += temp;
+			return color_str;
+		}
+	</script>
+</head>
+<body>
+	<div id="Ball"   onclick="Move()" ></div>
+</body>
+</html>
