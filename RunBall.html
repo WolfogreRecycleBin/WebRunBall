@@ -30,12 +30,12 @@
 				if((ball.x_left + 145) >= window.innerWidth || ball.x_left <= 0)
 				{
 					ball.x_a = -ball.x_a;
-					e.style.background = NewColor(ball.x_left,ball.y_top,Math.round(Math.random() * 1000));
+					e.style.background = NewColor();
 				}
 				if((ball.y_top + 145) >= window.innerHeight || ball.y_top <= 0)
 				{
 					ball.y_a = -ball.y_a;
-					e.style.background = NewColor(ball.x_left,ball.y_top,Math.round(Math.random() * 1000));
+					e.style.background = NewColor();
 				}
 				ball.x_left += ball.x_a;
 				ball.y_top += ball.y_a;
@@ -51,25 +51,17 @@
 	 		}
 		}
 
-		function NewColor(var1 ,var2 , var3)
+		function NewColor()
 		{
 			var color_str = new String("#");
-			var1 = var1 % 256;
-			var2 = var2 % 256;
-			var3 = var3 % 256;
-			var temp;
-			temp = var1.toString(16);
-			if(temp.length < 2)
-				temp = "0" + temp;
-			color_str += temp;
-			temp = var2.toString(16);
-			if(temp.length < 2)
-				temp = "0" + temp;
-			color_str += temp;
-			temp = var3.toString(16);
-			if(temp.length < 2)
-				temp = "0" + temp;
-			color_str += temp;
+			for(var i = 1; i <= 3; ++i)
+			{
+				var num =  Math.round(Math.random() * 1000) % 256;
+				var temp = num.toString(16);
+				if(temp.length < 2)
+					temp = "0" + temp;
+				color_str += temp;
+			}
 			return color_str;
 		}
 	</script>
