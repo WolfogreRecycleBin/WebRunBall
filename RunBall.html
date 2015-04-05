@@ -18,51 +18,39 @@
 		}
 	</style>
 	<script type="text/javascript">
-		var ball = new Object();
-		ball.x_left =100;
-		ball.y_top = 100;
-		ball.x_a = 1.0;
-		ball.y_a = 2.0;
-		var hz = 1;
+		var x_left = 100;
+		var y_top = 100;
+		var x_velocity = 1;
+		var y_velocity = 2;
+		var delay_time = 1;
 		function Move(){
-			try{
-				var e = document.getElementById('Ball');
-				if((ball.x_left + 145) >= window.innerWidth || ball.x_left <= 0)
-				{
-					ball.x_a = -ball.x_a;
-					e.style.background = NewColor();
-				}
-				if((ball.y_top + 145) >= window.innerHeight || ball.y_top <= 0)
-				{
-					ball.y_a = -ball.y_a;
-					e.style.background = NewColor();
-				}
-				ball.x_left += ball.x_a;
-				ball.y_top += ball.y_a;
-				var s = ball.x_left + "px";
-				e.style.left = s;
-				s = ball.y_top + "px";
-				e.style.top = s;
-				t = window.setTimeout("Move()",hz);
+			var e = document.getElementById('Ball');
+			if(x_left + parseInt(window.getComputedStyle(e, null).getPropertyValue("width")) >= window.innerWidth || x_left <= 0)
+			{
+				x_velocity = -x_velocity;
+				e.style.background = NewColor();
 			}
-			catch(err)
-	  		{
-	  			alert(err.message);
-	 		}
+			if(y_top + parseInt(window.getComputedStyle(e, null).getPropertyValue("height")) >= window.innerHeight || y_top <= 0)
+			{
+				y_velocity = -y_velocity;
+				e.style.background = NewColor();
+			}
+			x_left += x_velocity;
+			y_top += y_velocity;
+			var s = x_left + "px";
+			e.style.left = s;
+			s = y_top + "px";
+			e.style.top = s;
+			t = window.setTimeout("Move()",delay_time);
 		}
 
-		function NewColor()
-		{
-			var color_str = new String("#");
-			for(var i = 1; i <= 3; ++i)
-			{
-				var num =  Math.round(Math.random() * 1000) % 256;
-				var temp = num.toString(16);
-				if(temp.length < 2)
-					temp = "0" + temp;
-				color_str += temp;
-			}
-			return color_str;
+		function NewColor(){
+			var num =  Math.round(Math.random() * 16777216);
+			var str_color = num.toString(16);
+			while(str_color.length < 6)
+					str_color = "0" + str_color;
+			str_color = "#" + str_color;
+			return str_color;
 		}
 	</script>
 </head>
